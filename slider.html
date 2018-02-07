@@ -1,0 +1,215 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <!--IMAGES REFERENCE-->
+
+    <!--image1-->
+    <!--https://www.google.co.za/imgres?imgurl=http%3A%2F%2Fwallpaperswide.com%2Fdownload%2Fcity_lights_2-wallpaper-1366x768.jpg&imgrefurl=http%3A%2F%2Fwallpaperswide.com%2Fcity_lights_2-wallpapers.html&docid=jUoCfgJ2OgK2QM&tbnid=zB-gzUewP2YVBM%3A&vet=10ahUKEwjoo7v97oHZAhUmCcAKHYL5B8QQMwieAigAMAA..i&w=1366&h=768&bih=974&biw=1920&q=city%20lights%20hd&ved=0ahUKEwjoo7v97oHZAhUmCcAKHYL5B8QQMwieAigAMAA&iact=mrc&uact=8#h=768&imgdii=445YCPIGBylPqM:&vet=10ahUKEwjoo7v97oHZAhUmCcAKHYL5B8QQMwieAigAMAA..i&w=1366-->
+    <!--image2-->
+    <!--http://saxony-blue.com/city-lights-wallpaper/6217015.html-->
+    <!--image3-->
+    <!--https://zellox.com/2016/02/animal-picture/-->
+    <!--image4-->
+    <!--https://www.hd-wallpapersdownload.com/script/bulk-upload/desktop-hd-picture-of-dogs-and-puppies.jpg-->
+    <!--image5-->
+    <!--https://www.google.co.za/imgres?imgurl=http%3A%2F%2Fwww.hdwallpaperspulse.com%2Fwp-content%2Fuploads%2F2015%2F10%2F14%2Fbeautiful-nature-hd-backgrounds.jpg&imgrefurl=http%3A%2F%2Fwww.hdwallpaperspulse.com%2Fnature-hd-backgrounds.html&docid=Sxy46JEpHl19gM&tbnid=waqIZjxtxFmw-M%3A&vet=10ahUKEwiLueKM_YzZAhUiK8AKHcu_DKkQMwjCASgNMA0..i&w=1920&h=1080&bih=783&biw=1440&q=nature%20hd%20photos&ved=0ahUKEwiLueKM_YzZAhUiK8AKHcu_DKkQMwjCASgNMA0&iact=mrc&uact=8-->
+    
+    <!--IMAGES REFERENCE-->
+    <title>Infinite Image Slider</title>
+	<meta charset="utf-8" />
+
+    <link href="StyleSheet.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="content_container">
+        <div class="center_content">
+            <div class="image_slider_container">
+                <div class="text_header">
+                    <span>Infinite Image Slider</span>
+                </div>
+                
+                <div style="width:100%;" >
+                    
+                    <div style="width:10%; float:left;" class="tooltip" onclick="viewPreviousImage()">
+                        <span id="imageTitlePrevious" class="tooltiptext"></span>
+                        <a href="#">
+                            <span class="leftArrow"></span>
+                        </a>
+                    </div>
+                    
+                    <div class="image_slider_content" style="width:80%; float:left;">
+                        <div class="image_slider_content_overlay">
+                            <div id="prevImageDiv" class="prevNextImageDiv" onclick="viewPreviousImage()"></div>
+                            <div id="nextImageDiv" class="prevNextImageDiv" onclick="viewNextImage()"></div>
+                        </div>
+                        <img id="imageDisplay" class="image_slider_size" src="images/image1.jpg" />
+                        
+                    </div>
+                    <div style="width:10%; float:left;" class="tooltip" onclick="viewNextImage()">
+                        <span id="imageTitleNext" class="tooltiptext"></span>
+                        <a href="#">
+                            <span class="rightArrow"></span>
+                        </a>
+                    </div>
+                </div>
+                <div id="divDescription" class="description_div">
+                    <h2 style="color:#011;" id="hImageDescription"></h2>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+
+    <script type="text/javascript">
+        var index = 0;
+        var jsonData = null;
+        var imageID = null;
+        var title = null;
+        var description = null;
+        var imagePath = null;
+        var fileData = null;
+        
+
+        function getFileData(file) {
+            var data = new XMLHttpRequest();
+            data.open("GET", file, false);
+            data.onreadystatechange = function () {
+                if (data.readyState === 4) {
+                    //status '0' for local file read
+                    if (data.status === 200 || data.status == 0) {
+                        fileData = data.responseText;
+                        readJsonData(fileData);
+                        //alert(fileData);
+                    }
+                }
+            }
+            data.send(null);
+        }
+
+        function readJsonData(fileData) {
+            jsonData = JSON.parse(fileData);
+
+            //store info
+            imageID = jsonData.images[index].id;
+            title = jsonData.images[index].title;
+            description = jsonData.images[index].description;
+            imagePath = jsonData.images[index].imagePath;
+
+            var imageDisplay = document.getElementById("imageDisplay");
+            var imageDescription = document.getElementById("hImageDescription");
+
+            //display data
+            imageDisplay.src = imagePath;
+            imageDescription.innerHTML = "" + description;
+
+            var indexPrevious = index - 1;
+            var indexNext = index + 1;
+            if (indexPrevious < 0)
+            {
+                indexPrevious = jsonData.images.length - 1;
+            }
+            if (indexNext >= jsonData.images.length)
+            {
+                indexNext = 0;
+            }
+            
+            //set tooltips
+            document.getElementById("imageTitlePrevious").innerHTML = jsonData.images[indexPrevious].title;
+            document.getElementById("imageTitleNext").innerHTML = jsonData.images[indexNext].title;
+
+        }
+
+        
+    </script>
+    <script type="text/javascript">
+        window.onload = function() {
+            getFileData("imagesInfo.json");
+    }
+    </script>
+    
+    <script type="text/javascript">
+
+        function viewPreviousImage() {
+            //decrement value
+            index--;
+            //wrap index value
+            if (index < 0) {
+                index = jsonData.images.length - 1;
+            }
+
+            //store info
+            imageID = jsonData.images[index].id;
+            title = jsonData.images[index].title;
+            description = jsonData.images[index].description;
+            imagePath = jsonData.images[index].imagePath;
+
+            var imageDisplay = document.getElementById("imageDisplay");
+            var imageDescription = document.getElementById("hImageDescription");
+           
+            //display data
+            imageDisplay.src = imagePath;
+            imageDescription.innerHTML = "" + description;
+
+            //set previous value (wrap)
+            var indexPrevious = index - 1;
+            if (indexPrevious < 0) {
+                indexPrevious = jsonData.images.length - 1;
+            }
+            //set next value (wrap)
+            var indexNext = index + 1;
+            if (indexNext >= jsonData.images.length) {
+                indexNext = 0;
+            }
+
+            //set tooltips
+            document.getElementById("imageTitlePrevious").innerHTML = jsonData.images[indexPrevious].title;
+            document.getElementById("imageTitleNext").innerHTML = jsonData.images[indexNext].title;
+        }
+
+
+    </script>
+
+    <script type="text/javascript">
+
+        function viewNextImage() {
+            //increment value
+            index++;
+            //wrap index value
+            if (index >= jsonData.images.length) {
+                index = 0;
+            }
+
+            //store info
+            imageID = jsonData.images[index].id;
+            title = jsonData.images[index].title;
+            description = jsonData.images[index].description;
+            imagePath = jsonData.images[index].imagePath;
+
+            var imageDisplay = document.getElementById("imageDisplay");
+            var imageDescription = document.getElementById("hImageDescription");
+
+            //display data
+            imageDisplay.src = imagePath;
+            imageDescription.innerHTML = "" + description;
+
+            //set previous value (wrap)
+            var indexPrevious = index - 1;
+            if (indexPrevious < 0) {
+                indexPrevious = jsonData.images.length - 1;
+            }
+            //set next value (wrap)
+            var indexNext = index + 1;
+            if (indexNext >= jsonData.images.length)
+            {
+                indexNext = 0;
+            }
+
+            //set tooltips
+            document.getElementById("imageTitlePrevious").innerHTML = jsonData.images[indexPrevious].title;
+            document.getElementById("imageTitleNext").innerHTML = jsonData.images[indexNext].title;
+        }
+
+
+    </script>
+</body>
+</html>

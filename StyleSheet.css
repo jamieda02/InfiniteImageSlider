@@ -1,0 +1,182 @@
+﻿body {
+    width: 100%;
+    height: 100%;
+    background: url('images/green_background.jpg') no-repeat center center fixed; /* ref: https://wallpaperscraft.com/download/green_background_texture_solid_color_65793/2560x1600 */
+    -webkit-background-size: cover; /*Chrome, Safari*/
+    -moz-background-size: cover; /*Firefox*/
+    -o-background-size: cover; /*Opera*/
+    background-size: cover;
+}
+
+.content_container {
+    width:100%;
+    height: 100%;
+}
+
+.center_content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width:100%;
+}
+
+.image_slider_container {
+    width:100%;
+    height:90%;
+    text-align:center;
+    
+}
+
+.text_header {
+    font-size: 1.5em;
+    text-transform: uppercase;
+    width: 90%;
+    text-align: center;
+    background-color: #588a57;
+    color:#cccccc;
+    box-shadow: 0px 8px 8px rgba(0, 0, 0, 0.1), 0px -5px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 50px;
+    position: relative;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    height: 40px;
+    line-height: 40px;
+    margin: 3% 0;
+    margin-top:3%;
+}
+
+.image_slider_content {
+    width: 70%;
+    display:inline-block;
+    /*margin:0 auto;*/
+}
+.image_slider_content_overlay {
+    width: 60%;
+    height: 80%;
+    /*margin:0 auto;*/
+    position:absolute;
+    display:inline-block;
+}
+
+.circle_left{
+    display: inline-block;
+  width: 10%;
+  height: 10%;
+  border: 0.5em solid #333;
+  border-radius: 50%;
+  margin-right: 1.5em;
+}
+
+.image_slider_size {
+    width: 75%;
+}
+
+.description_div {
+    width:100%; 
+    float:left;
+}
+
+/*Arrow class items ref*/
+/*https://codepen.io/sampeniak/pen/Imhpy*/
+a {
+  display: inline-block;
+  border-radius: 50%;
+}
+
+a:hover .leftArrow, a:hover .rightArrow {
+  border: 0.5em solid #fff;
+}
+
+a:hover .leftArrow:after, a:hover .rightArrow:after {
+  border-top: 0.5em solid #fff;
+  border-right: 0.5em solid #fff;
+}
+
+.leftArrow {
+  display: inline-block;
+  width: 4em;
+  height: 4em;
+  border: 0.5em solid #444;
+  border-radius: 50%;
+  margin-right: 1.5em;
+}
+
+.leftArrow:after {
+  content: '';
+	display: inline-block;
+  margin-top: 1.05em;
+  margin-left: 0.6em;
+  width: 1.4em;
+  height: 1.4em;
+  border-top: 0.5em solid #444;
+  border-right: 0.5em solid #444;
+  -moz-transform: rotate(-135deg);
+  -webkit-transform: rotate(-135deg);
+  transform: rotate(-135deg);
+}
+
+.rightArrow {
+  display: inline-block;
+  width: 4em;
+  height: 4em;
+  border: 0.5em solid #444;
+  border-radius: 50%;
+  margin-left: 1.5em;
+}
+
+.rightArrow:after {
+  content: '';
+	display: inline-block;
+  margin-top: 1.05em;
+  margin-left: -0.6em;
+  width: 1.4em;
+  height: 1.4em;
+  border-top: 0.5em solid #444;
+  border-right: 0.5em solid #444;
+  -moz-transform: rotate(45deg);
+  -webkit-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+
+/*Tooltip items ref*/
+/*https://www.w3schools.com/css/css_tooltip.asp*/
+
+/* Tooltip container */
+.tooltip {
+    position: relative;
+    display: inline-block;
+    
+}
+
+/* Tooltip text */
+.tooltip .tooltiptext {
+    visibility: hidden;
+    width: 120px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    padding: 5px 0;
+    border-radius: 6px;
+ 
+    /* Position the tooltip text - see examples below! */
+    position: absolute;
+    z-index: 1;
+}
+
+/* Show the tooltip text when you mouse over the tooltip container */
+.tooltip:hover .tooltiptext {
+    visibility: visible;
+}
+
+/*Tooltip items ref*/
+
+.prevNextImageDiv {
+    width: 50%;
+    height: 100%;
+    float: left;
+}
+
+
+
